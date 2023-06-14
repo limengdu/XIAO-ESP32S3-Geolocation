@@ -20,6 +20,7 @@ const char* password = "<YOUR_WIFI_PW_HERE>";
 // For ipstack
 const char* IPStack_key = "<YOUR_API_KEY_HERE>";
 //String ip_address = "113.87.163.2";
+String ip_address;
 
 // For google static maps
 const char * host = "maps.googleapis.com";
@@ -244,8 +245,15 @@ void setup() {
   Serial.print("The IP address of the current network is: ");
   
   // Get local IP address
-  IPAddress ip = WiFi.localIP();
-  ip_address = ip.toString();
+  IPAddress publicIP;
+  if (WiFi.hostByName("ip-api.com", publicIP)) {
+    Serial.print("Public IP address: ");
+    Serial.println(publicIP);
+  } else {
+    Serial.println("Failed to get public IP address");
+    return;
+  }
+  ip_address = publicIP.toString();
   Serial.println(ip_address);
 
   // The jpeg image can be scaled by a factor of 1, 2, 4, or 8
