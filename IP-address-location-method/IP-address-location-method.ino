@@ -238,7 +238,6 @@ void setup() {
   Serial.println(ssid);
   WiFi.begin(ssid, password);
   while(WiFi.status() != WL_CONNECTED){
-    vTaskDelay(500);
     Serial.print(".");
   }
   Serial.println("Wi-Fi Connected!");
